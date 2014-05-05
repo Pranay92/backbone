@@ -1685,10 +1685,13 @@
   var urlError = function() {
     throw new Error('A "url" property or function must be specified');
   };
-
+  
+  var defaultError = function(model,resp,options) {
+     alert('Default error for ajax requests.');
+  }
   // Wrap an optional error callback with a fallback error event.
   var wrapError = function(model, options) {
-    var error = options.error;
+    var error = options.error || defaultError;
     options.error = function(resp) {
       if (error) error(model, resp, options);
       model.trigger('error', model, resp, options);
